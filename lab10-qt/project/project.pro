@@ -1,34 +1,39 @@
-QT -= gui
-QT += xml
 
-CONFIG += c++1z console
-CONFIG -= app_bundle
+QT += core gui sql xml widgets
+CONFIG += c++1z
 
+TEMPLATE = app
 DEFINES += QT_DEPRECATED_WARNINGS
 
-SOURCES += main.cpp \
-    csvstorage.cpp \
-    filestorage.cpp \
-    cui.cpp        \
-    xmlstorage.cpp
+SOURCES += \
+    fndradd.cpp \
+    fndredit.cpp \
+    orgadd.cpp \
+    orgedit.cpp \
+    storage.cpp \
+    sqlite_storage.cpp \
+    mainwindow.cpp \
+    main.cpp \
+    useredit.cpp
 
-HEADERS +=          \
-  csvstorage.hpp \
-  cui.hpp \
-  filestorage.hpp \
-  founder.hpp \
-  organisation.hpp \
-  xmlstorage.hpp
+HEADERS += \
+    fndradd.hpp \
+    fndredit.hpp \
+    founder.h \
+    orgadd.hpp \
+    organisation.h \
+    orgedit.hpp \
+    user.h \
+    storage.h \
+    sqlite_storage.h \
+    mainwindow.h \
+    useredit.hpp
 
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../csvlab/release/ -lcsvlab
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../csvlab/debug/ -lcsvlab
-else:unix: LIBS += -L$$OUT_PWD/../csvlab/ -lcsvlab
+FORMS += \
+  fndradd.ui \
+  fndredit.ui \
+  mainwindow.ui \
+  orgadd.ui \
+  orgedit.ui \
+  useredit.ui
 
-INCLUDEPATH += $$PWD/../csvlab
-DEPENDPATH += $$PWD/../csvlab
-
-win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../csvlab/release/libcsvlab.a
-else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../csvlab/debug/libcsvlab.a
-else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../csvlab/release/csvlab.lib
-else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../csvlab/debug/csvlab.lib
-else:unix: PRE_TARGETDEPS += $$OUT_PWD/../csvlab/libcsvlab.a

@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<orgs>
-  <org id="50" country="US" label="Google inc." founders="Larry Page, Sergey Brin"></org>
-  <org id="30" country="UK" label="EPAM Systems" founders="Arkadiy Dobkin, Leo Lozner"></org>
-  <org id="23" country="US" label="Microsoft Corporation" founders="Bill Gates, Paul Allen"></org>
-  <org id="91" country="UK" label="Apple Inc." founders="Steve Jobs, Steve Wozniak, Ronald Wayne"></org>
-  <org id="69" country="UG" label="FlexAir" founders="Ricardo Milos"></org>
-</orgs>

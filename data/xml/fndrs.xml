@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<fndrs>
-  <fndr id="11" name="Larry Page" age="47" wealth="48bil"></fndr>
-  <fndr id="42" name="Bill Gates" age="64" wealth="105bil"></fndr>
-  <fndr id="30" name="Paul Allen" age="65" wealth="20bil"></fndr>
-  <fndr id="12" name="Steve Wozniak" age="69" wealth="100mil"></fndr>
-  <fndr id="96" name="Ricardo Milos" age="1" wealth="999guglplex"></fndr>
-</fndrs>

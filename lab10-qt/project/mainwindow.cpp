@@ -288,13 +288,14 @@ void MainWindow::on_founders_button_clicked() {
   ui->fndr_org->setText(ui->org_list->selectedItems().at(0)->data(Qt::UserRole).value<Org>().label);
   addFndr(fndrs);
   ui->stackedWidget_2->setCurrentIndex(1);
+  ui->fndr_add->setEnabled(1);
 }
 
 void MainWindow::on_fndr_list_itemClicked(QListWidgetItem *i) {
   Fndr f = i->data(Qt::UserRole).value<Fndr>();
   ui->name->setText(f.name);
-  ui->age->setText(QString(f.age));
-  ui->wealth->setText(QString(f.wealth));
+  ui->age->setValue(f.age);
+  ui->wealth->setValue(f.wealth);
   ui->fndr_edit->setEnabled(1);
   ui->fndr_del->setEnabled(1);
   ui->back->setEnabled(1);
@@ -371,8 +372,8 @@ void MainWindow::on_fndr_del_clicked() {
     ui->fndr_edit->setEnabled(false);
 
     ui->name->setText("");
-    ui->age->setText("");
-    ui->wealth->setText("");
+    ui->age->setValue(0);
+    ui->wealth->setValue(0);
   } else {
     items = ui->fndr_list->selectedItems();
     QListWidgetItem* item = items.at(0);

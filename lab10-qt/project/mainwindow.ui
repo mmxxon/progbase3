@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>945</width>
+    <width>952</width>
     <height>600</height>
    </rect>
   </property>
@@ -2412,9 +2412,9 @@ background-color: rgb(200, 200, 200);</string>
                      </spacer>
                     </item>
                     <item>
-                     <widget class="QLabel" name="age">
+                     <widget class="QSpinBox" name="age">
                       <property name="enabled">
-                       <bool>true</bool>
+                       <bool>false</bool>
                       </property>
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -2430,25 +2430,32 @@ background-color: rgb(200, 200, 200);</string>
                       </property>
                       <property name="font">
                        <font>
+                        <family>Arial Black</family>
                         <pointsize>12</pointsize>
                        </font>
+                      </property>
+                      <property name="focusPolicy">
+                       <enum>Qt::NoFocus</enum>
                       </property>
                       <property name="styleSheet">
                        <string notr="true">color: rgb(100, 100, 100);
 border-radius:10px;
 background-color: rgb(200, 200, 200);</string>
                       </property>
-                      <property name="text">
-                       <string/>
-                      </property>
-                      <property name="scaledContents">
+                      <property name="frame">
                        <bool>true</bool>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignCenter</set>
                       </property>
-                      <property name="wordWrap">
-                       <bool>true</bool>
+                      <property name="buttonSymbols">
+                       <enum>QAbstractSpinBox::NoButtons</enum>
+                      </property>
+                      <property name="keyboardTracking">
+                       <bool>false</bool>
+                      </property>
+                      <property name="singleStep">
+                       <number>0</number>
                       </property>
                      </widget>
                     </item>
@@ -2469,9 +2476,9 @@ background-color: rgb(200, 200, 200);</string>
                      </spacer>
                     </item>
                     <item>
-                     <widget class="QLabel" name="wealth">
+                     <widget class="QSpinBox" name="wealth">
                       <property name="enabled">
-                       <bool>true</bool>
+                       <bool>false</bool>
                       </property>
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -2491,22 +2498,28 @@ background-color: rgb(200, 200, 200);</string>
                         <pointsize>12</pointsize>
                        </font>
                       </property>
+                      <property name="focusPolicy">
+                       <enum>Qt::NoFocus</enum>
+                      </property>
                       <property name="styleSheet">
                        <string notr="true">color: rgb(100, 100, 100);
 border-radius:10px;
 background-color: rgb(200, 200, 200);</string>
                       </property>
-                      <property name="text">
-                       <string/>
-                      </property>
-                      <property name="scaledContents">
+                      <property name="frame">
                        <bool>true</bool>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignCenter</set>
                       </property>
-                      <property name="wordWrap">
-                       <bool>true</bool>
+                      <property name="buttonSymbols">
+                       <enum>QAbstractSpinBox::NoButtons</enum>
+                      </property>
+                      <property name="keyboardTracking">
+                       <bool>false</bool>
+                      </property>
+                      <property name="singleStep">
+                       <number>0</number>
                       </property>
                      </widget>
                     </item>

@@ -1,20 +1,20 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
-#include <QCloseEvent>
-#include <QListWidgetItem>
-#include <QMessageBox>
-#include <QListWidget>
-#include "storage.h"
-#include "user.h"
-#include "useredit.hpp"
-#include "orgedit.hpp"
 #include "fndradd.hpp"
 #include "fndredit.hpp"
 #include "orgadd.hpp"
+#include "orgedit.hpp"
 #include "sqlite_storage.h"
+#include "storage.h"
+#include "user.h"
+#include "useredit.hpp"
+#include <QCloseEvent>
 #include <QGraphicsBlurEffect>
+#include <QListWidget>
+#include <QListWidgetItem>
+#include <QMainWindow>
+#include <QMessageBox>
 
 #include "ui_mainwindow.h"
 #include <QFileDialog>
@@ -22,90 +22,81 @@
 
 #include <QDebug>
 
-
 namespace Ui {
 class MainWindow;
 }
 
-class MainWindow : public QMainWindow
-{
-    Q_OBJECT
+class MainWindow : public QMainWindow {
+  Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+  explicit MainWindow(QWidget *parent = 0);
+  ~MainWindow();
 signals:
-   void user_to_edit(optional<User>*);
-   void org_to_update(QListWidgetItem*);
-   void fndr_to_update(QListWidgetItem*);
+  void user_to_edit(optional<User> *);
+  void org_to_update(QListWidgetItem *);
+  void fndr_to_update(QListWidgetItem *);
+
 protected:
-   void closeEvent(QCloseEvent *);
+  void closeEvent(QCloseEvent *);
 
 private slots:
-   void addOrg(const QVector<Org> &);
+  void on_exit_clicked();
 
-   void addFndr(const QVector<Fndr> &);
+  void on_main_new_clicked();
+  void on_main_open_clicked();
 
-   void user_update(User*);
+  void on_close_clicked();
+  void on_login_login_textChanged(const QString &);
+  void on_login_confirm_textChanged(const QString &);
+  void on_login_pass_textChanged(const QString &);
+  void on_login_continue_clicked();
 
-   void org_update(Org*);
+  void addOrg(const QVector<Org> &);
+  void addFndr(const QVector<Fndr> &);
+  void dialogDisabling();
+  void user_update(User *);
+  void org_push(Org *);
+  void org_update(Org *);
+  void fndr_push(Fndr *);
+  void fndr_update(Fndr *);
 
-   void org_push(Org*);
+  void on_ent_user_edit_clicked();
+  void on_ent_user_logout_clicked();
 
-   void fndr_push(Fndr*);
+  void on_org_add_clicked();
+  void on_org_del_clicked();
+  void on_org_edit_clicked();
+  void on_org_founders_clicked();
+  void on_orgs_list_itemClicked(QListWidgetItem *);
 
-   void fndr_update(Fndr*);
+  void on_fndr_add_clicked();
+  void on_fndr_del_clicked();
+  void on_fndr_edit_clicked();
+  void on_back_clicked();
+  void on_fndr_list_itemClicked(QListWidgetItem *);
 
-   void dialogDisabling();
+  void on_org_search_textChanged(const QString &arg1);
 
-   void on_Continue_clicked();
-
-   void on_open_button_clicked();
-
-   void on_password_textChanged(const QString &);
-
-   void on_login_textChanged(const QString &);
-
-   void on_new_button_clicked();
-
-   void on_confirm_textChanged(const QString &);
-
-   void on_org_list_itemClicked(QListWidgetItem *);
-   void on_logout_clicked();
-   void on_exit_clicked();
-
-   void on_close_db_clicked();
-
-   void on_edit_user_clicked();
-
-   void on_org_edit_clicked();
-
-   void on_org_add_clicked();
-
-   void on_founders_button_clicked();
-
-   void on_fndr_list_itemClicked(QListWidgetItem*);
-
-   void on_fndr_add_clicked();
-
-   void on_org_del_clicked();
-
-   void on_back_clicked();
-
-   void on_fndr_del_clicked();
-
-   void on_fndr_edit_clicked();
+  void on_fndr_search_textChanged(const QString &arg1);
 
 private:
-    Ui::MainWindow *ui;
-    FndrEdit* fndredit;
-    FndrAdd* fndradd;
-    OrgEdit* orgedit;
-    OrgAdd* orgadd;
-    UserEdit* useredit;
-    Storage * storage_=nullptr;
-    optional <User>  auth_user;
+  Ui::MainWindow *ui;
+  FndrEdit *fndredit;
+  FndrAdd *fndradd;
+  OrgEdit *orgedit;
+  OrgAdd *orgadd;
+  UserEdit *useredit;
+  Storage *storage_ = nullptr;
+  optional<User> auth_user;
+  Org global_org;
+  QString osearch = "";
+  QString fsearch = "";
+  int org_curr_page=0;
+  int org_max_page=0;
+  int fndr_curr_page=0;
+  int fndr_max_page=0;
 };
 
 #endif // MAINWINDOW_H
-//Q_DECLARE_METATYPE(Operator);
+// Q_DECLARE_METATYPE(Operator);

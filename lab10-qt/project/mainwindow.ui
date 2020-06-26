@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>952</width>
-    <height>600</height>
+    <width>976</width>
+    <height>575</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,12 +17,18 @@
    <string notr="true">background-color: rgb(27, 27, 27);
 color: rgb(255, 255, 255);</string>
   </property>
+  <property name="inputMethodHints">
+   <set>Qt::ImhNone</set>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout_9">
       <item>
        <widget class="QPushButton" name="exit">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="minimumSize">
          <size>
           <width>100</width>
@@ -47,7 +53,7 @@ color: rgb(255, 255, 255);
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="close_db">
+       <widget class="QPushButton" name="close">
         <property name="enabled">
          <bool>false</bool>
         </property>
@@ -75,7 +81,7 @@ color: rgb(255, 255, 255);
        </widget>
       </item>
       <item>
-       <spacer name="horizontalSpacer_13">
+       <spacer name="global_spacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -90,7 +96,7 @@ color: rgb(255, 255, 255);
      </layout>
     </item>
     <item row="3" column="0">
-     <widget class="QStackedWidget" name="stackedWidget">
+     <widget class="QStackedWidget" name="menu">
       <property name="enabled">
        <bool>true</bool>
       </property>
@@ -100,8 +106,11 @@ color: rgb(255, 255, 255);
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhDigitsOnly|Qt::ImhLatinOnly</set>
+      </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="main_menu">
        <property name="sizePolicy">
@@ -118,7 +127,7 @@ color: rgb(255, 255, 255);
        </property>
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="5" column="1">
-         <spacer name="verticalSpacer_4">
+         <spacer name="main_downSpacer2">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
@@ -131,7 +140,7 @@ color: rgb(255, 255, 255);
          </spacer>
         </item>
         <item row="2" column="1">
-         <spacer name="verticalSpacer_6">
+         <spacer name="main_upSpacer3">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
@@ -164,9 +173,9 @@ color: rgb(255, 255, 255);
            <number>20</number>
           </property>
           <item row="0" column="0">
-           <widget class="QPushButton" name="new_button">
+           <widget class="QPushButton" name="main_new">
             <property name="enabled">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -209,7 +218,10 @@ color: rgb(0, 0, 0);</string>
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QPushButton" name="open_button">
+           <widget class="QPushButton" name="main_open">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
               <horstretch>0</horstretch>
@@ -263,7 +275,7 @@ color: rgb(0, 0, 0);
          </layout>
         </item>
         <item row="3" column="2">
-         <spacer name="horizontalSpacer_2">
+         <spacer name="main_rightSpacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -276,7 +288,7 @@ color: rgb(0, 0, 0);
          </spacer>
         </item>
         <item row="3" column="0">
-         <spacer name="horizontalSpacer">
+         <spacer name="main_leftSpacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -289,7 +301,7 @@ color: rgb(0, 0, 0);
          </spacer>
         </item>
         <item row="6" column="1">
-         <spacer name="verticalSpacer_3">
+         <spacer name="main_downSpacer3">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
@@ -302,7 +314,7 @@ color: rgb(0, 0, 0);
          </spacer>
         </item>
         <item row="1" column="1">
-         <spacer name="verticalSpacer_5">
+         <spacer name="main_upSpacer2">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
@@ -315,7 +327,7 @@ color: rgb(0, 0, 0);
          </spacer>
         </item>
         <item row="0" column="1">
-         <spacer name="verticalSpacer_2">
+         <spacer name="main_upSpacer1">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
@@ -328,7 +340,7 @@ color: rgb(0, 0, 0);
          </spacer>
         </item>
         <item row="4" column="1">
-         <spacer name="verticalSpacer_7">
+         <spacer name="main_downSpacer1">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
@@ -342,7 +354,7 @@ color: rgb(0, 0, 0);
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page">
+      <widget class="QWidget" name="login_menu">
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
          <spacer name="verticalSpacer_15">
@@ -361,7 +373,7 @@ color: rgb(0, 0, 0);
          </spacer>
         </item>
         <item>
-         <spacer name="verticalSpacer_11">
+         <spacer name="login_upSpacer2">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
@@ -377,7 +389,7 @@ color: rgb(0, 0, 0);
          </spacer>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="login_out_block">
+         <layout class="QHBoxLayout" name="fields_block">
           <item>
            <spacer name="horizontalSpacer_3">
             <property name="orientation">
@@ -392,9 +404,12 @@ color: rgb(0, 0, 0);
            </spacer>
           </item>
           <item>
-           <layout class="QVBoxLayout" name="login_block">
+           <layout class="QVBoxLayout" name="fields_inner">
             <item>
-             <widget class="QLabel" name="Login_label">
+             <widget class="QLabel" name="login_login_label">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -427,7 +442,10 @@ color: rgb(0, 0, 0);</string>
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="login">
+             <widget class="QLineEdit" name="login_login">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -451,11 +469,14 @@ color: rgb(0, 0, 0);</string>
 border-radius:10px;
 color: rgb(255, 255, 255);</string>
               </property>
+              <property name="inputMethodHints">
+               <set>Qt::ImhNone</set>
+              </property>
               <property name="text">
                <string/>
               </property>
               <property name="maxLength">
-               <number>30</number>
+               <number>15</number>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -463,7 +484,10 @@ color: rgb(255, 255, 255);</string>
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="Password_label">
+             <widget class="QLabel" name="login_pass_label">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -496,7 +520,10 @@ color: rgb(0, 0, 0);</string>
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="password">
+             <widget class="QLineEdit" name="login_pass">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -527,7 +554,7 @@ color: rgb(255, 255, 255);</string>
                <string notr="true"/>
               </property>
               <property name="maxLength">
-               <number>30</number>
+               <number>15</number>
               </property>
               <property name="echoMode">
                <enum>QLineEdit::Password</enum>
@@ -538,7 +565,10 @@ color: rgb(255, 255, 255);</string>
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="Confirm_label">
+             <widget class="QLabel" name="login_confirm_label">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -571,7 +601,10 @@ color: rgb(0, 0, 0);</string>
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="confirm">
+             <widget class="QLineEdit" name="login_confirm">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -602,7 +635,7 @@ color: rgb(255, 255, 255);</string>
                <string notr="true"/>
               </property>
               <property name="maxLength">
-               <number>30</number>
+               <number>15</number>
               </property>
               <property name="echoMode">
                <enum>QLineEdit::Password</enum>
@@ -662,9 +695,9 @@ color: rgb(255, 255, 255);</string>
          </spacer>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <layout class="QHBoxLayout" name="button_block">
           <item>
-           <spacer name="horizontalSpacer_5">
+           <spacer name="leftSpacer1">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -677,7 +710,7 @@ color: rgb(255, 255, 255);</string>
            </spacer>
           </item>
           <item>
-           <spacer name="horizontalSpacer_6">
+           <spacer name="leftSpacer2">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -690,7 +723,10 @@ color: rgb(255, 255, 255);</string>
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="Continue">
+           <widget class="QPushButton" name="login_continue">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -720,7 +756,7 @@ color: rgb(0, 0, 0);</string>
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer_8">
+           <spacer name="rightSpacer1">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -733,7 +769,7 @@ color: rgb(0, 0, 0);</string>
            </spacer>
           </item>
           <item>
-           <spacer name="horizontalSpacer_7">
+           <spacer name="rightSpacer2">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -765,10 +801,10 @@ color: rgb(0, 0, 0);</string>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="items_menu">
+      <widget class="QWidget" name="entities_menu">
        <layout class="QVBoxLayout" name="verticalLayout_6">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
+         <layout class="QHBoxLayout" name="login_block">
           <property name="leftMargin">
            <number>9</number>
           </property>
@@ -860,7 +896,7 @@ color: rgb(0, 0, 0);</string>
            </spacer>
           </item>
           <item>
-           <widget class="QLabel" name="user_label">
+           <widget class="QLabel" name="ent_user_label">
             <property name="enabled">
              <bool>true</bool>
             </property>
@@ -897,7 +933,7 @@ color: rgb(255, 255, 255);
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="user_login">
+           <widget class="QLabel" name="ent_user">
             <property name="enabled">
              <bool>true</bool>
             </property>
@@ -927,13 +963,16 @@ background-color: rgb(200, 200, 200);</string>
             <property name="text">
              <string/>
             </property>
+            <property name="scaledContents">
+             <bool>true</bool>
+            </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="edit_user">
+           <widget class="QPushButton" name="ent_user_edit">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -985,7 +1024,7 @@ color: rgb(0, 0, 0);
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="logout">
+           <widget class="QPushButton" name="ent_user_logout">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -1039,7 +1078,7 @@ color: rgb(0, 0, 0);
          </layout>
         </item>
         <item>
-         <widget class="Line" name="line_2">
+         <widget class="Line" name="separator">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
             <horstretch>0</horstretch>
@@ -1064,7 +1103,7 @@ color: rgb(0, 0, 0);
          </widget>
         </item>
         <item>
-         <widget class="QStackedWidget" name="stackedWidget_2">
+         <widget class="QStackedWidget" name="entities">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
@@ -1072,9 +1111,9 @@ color: rgb(0, 0, 0);
            </sizepolicy>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
-          <widget class="QWidget" name="page_2">
+          <widget class="QWidget" name="orgs_menu">
            <layout class="QGridLayout" name="gridLayout_2">
             <item row="1" column="2">
              <spacer name="verticalSpacer_8">
@@ -1111,93 +1150,234 @@ color: rgb(0, 0, 0);
                </spacer>
               </item>
               <item>
-               <widget class="QListWidget" name="org_list">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>296</width>
-                  <height>206</height>
-                 </size>
-                </property>
-                <property name="font">
-                 <font>
-                  <family>Arial</family>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">background: rgb(27, 27, 27);
+               <layout class="QVBoxLayout" name="verticalLayout_12">
+                <item>
+                 <widget class="QLabel" name="org_list_label">
+                  <property name="font">
+                   <font>
+                    <family>Arial Black</family>
+                    <pointsize>15</pointsize>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(255, 163, 26);</string>
+                  </property>
+                  <property name="text">
+                   <string>ORGANISATIONS</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="org_search">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>Arial</family>
+                    <pointsize>14</pointsize>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(100, 100, 100);
+border-radius:10px;</string>
+                  </property>
+                  <property name="maxLength">
+                   <number>30</number>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="placeholderText">
+                   <string>search</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QListWidget" name="orgs_list">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>296</width>
+                    <height>206</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>Arial</family>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background: rgb(27, 27, 27);
 color: rgb(255, 255, 255);
 QListView::item:selected { background:  rgb(255, 163, 26); color: rgb(0, 0, 0)}</string>
-                </property>
-                <property name="tabKeyNavigation">
-                 <bool>true</bool>
-                </property>
-                <property name="textElideMode">
-                 <enum>Qt::ElideRight</enum>
-                </property>
-                <property name="viewMode">
-                 <enum>QListView::ListMode</enum>
-                </property>
-                <property name="selectionRectVisible">
-                 <bool>false</bool>
-                </property>
-                <item>
-                 <property name="text">
-                  <string>ORGANISATIONS</string>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>Arial</family>
-                   <pointsize>14</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="textAlignment">
-                  <set>AlignCenter</set>
-                 </property>
-                 <property name="background">
-                  <brush brushstyle="NoBrush">
-                   <color alpha="255">
-                    <red>108</red>
-                    <green>108</green>
-                    <blue>108</blue>
-                   </color>
-                  </brush>
-                 </property>
-                 <property name="foreground">
-                  <brush brushstyle="SolidPattern">
-                   <color alpha="255">
-                    <red>255</red>
-                    <green>163</green>
-                    <blue>26</blue>
-                   </color>
-                  </brush>
-                 </property>
-                 <property name="flags">
-                  <set>NoItemFlags</set>
-                 </property>
+                  </property>
+                  <property name="tabKeyNavigation">
+                   <bool>true</bool>
+                  </property>
+                  <property name="textElideMode">
+                   <enum>Qt::ElideRight</enum>
+                  </property>
+                  <property name="viewMode">
+                   <enum>QListView::ListMode</enum>
+                  </property>
+                  <property name="selectionRectVisible">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
                 </item>
                 <item>
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="background">
-                  <brush brushstyle="BDiagPattern">
-                   <color alpha="255">
-                    <red>79</red>
-                    <green>80</green>
-                    <blue>80</blue>
-                   </color>
-                  </brush>
-                 </property>
-                 <property name="flags">
-                  <set>NoItemFlags</set>
-                 </property>
+                 <layout class="QHBoxLayout" name="horizontalLayout_5">
+                  <item>
+                   <widget class="QSpinBox" name="org_prev">
+                    <property name="minimumSize">
+                     <size>
+                      <width>30</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>Arial Black</family>
+                      <pointsize>14</pointsize>
+                     </font>
+                    </property>
+                    <property name="focusPolicy">
+                     <enum>Qt::NoFocus</enum>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(255, 163, 26);
+border-radius:10px;
+color: rgb(0, 0, 0);
+</string>
+                    </property>
+                    <property name="frame">
+                     <bool>true</bool>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                    <property name="readOnly">
+                     <bool>true</bool>
+                    </property>
+                    <property name="buttonSymbols">
+                     <enum>QAbstractSpinBox::NoButtons</enum>
+                    </property>
+                    <property name="minimum">
+                     <number>0</number>
+                    </property>
+                    <property name="maximum">
+                     <number>1</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_7">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="org_page">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">color: rgb(50, 50, 50);
+border-radius:10px;
+background-color: rgb(200, 200, 200);</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_8">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QSpinBox" name="org_next">
+                    <property name="minimumSize">
+                     <size>
+                      <width>30</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>Arial Black</family>
+                      <pointsize>14</pointsize>
+                     </font>
+                    </property>
+                    <property name="focusPolicy">
+                     <enum>Qt::NoFocus</enum>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(255, 163, 26);
+border-radius:10px;
+color: rgb(0, 0, 0);
+</string>
+                    </property>
+                    <property name="frame">
+                     <bool>true</bool>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                    <property name="readOnly">
+                     <bool>true</bool>
+                    </property>
+                    <property name="buttonSymbols">
+                     <enum>QAbstractSpinBox::NoButtons</enum>
+                    </property>
+                    <property name="minimum">
+                     <number>0</number>
+                    </property>
+                    <property name="maximum">
+                     <number>1</number>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
                 </item>
-               </widget>
+               </layout>
               </item>
               <item>
                <widget class="Line" name="line_3">
@@ -1207,7 +1387,7 @@ QListView::item:selected { background:  rgb(255, 163, 26); color: rgb(0, 0, 0)}<
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer_10">
+               <spacer name="horizontalSpacer_12">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -1225,20 +1405,127 @@ QListView::item:selected { background:  rgb(255, 163, 26); color: rgb(0, 0, 0)}<
               <item>
                <layout class="QVBoxLayout" name="verticalLayout_9">
                 <item>
-                 <spacer name="horizontalSpacer_26">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
+                 <layout class="QHBoxLayout" name="horizontalLayout_12">
+                  <property name="leftMargin">
+                   <number>9</number>
                   </property>
-                  <property name="sizeType">
-                   <enum>QSizePolicy::Expanding</enum>
+                  <property name="topMargin">
+                   <number>9</number>
                   </property>
-                  <property name="sizeHint" stdset="0">
+                  <property name="rightMargin">
+                   <number>9</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>9</number>
+                  </property>
+                  <item>
+                   <widget class="QLabel" name="placeholder">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>230</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>Arial Black</family>
+                      <pointsize>16</pointsize>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"/>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="placeholder_2">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>230</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>Arial</family>
+                      <pointsize>12</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"/>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="scaledContents">
+                     <bool>true</bool>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                    <property name="wordWrap">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <widget class="Line" name="placeholder_3">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
                    <size>
-                    <width>20</width>
-                    <height>50</height>
+                    <width>1</width>
+                    <height>0</height>
                    </size>
                   </property>
-                 </spacer>
+                  <property name="styleSheet">
+                   <string notr="true"/>
+                  </property>
+                  <property name="frameShadow">
+                   <enum>QFrame::Sunken</enum>
+                  </property>
+                  <property name="lineWidth">
+                   <number>0</number>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
                 </item>
                 <item>
                  <spacer name="horizontalSpacer_28">
@@ -1276,7 +1563,7 @@ QListView::item:selected { background:  rgb(255, 163, 26); color: rgb(0, 0, 0)}<
                      <number>9</number>
                     </property>
                     <item>
-                     <widget class="QLabel" name="label_label">
+                     <widget class="QLabel" name="org_label_label">
                       <property name="enabled">
                        <bool>true</bool>
                       </property>
@@ -1329,7 +1616,7 @@ color: rgb(255, 255, 255);
                      </spacer>
                     </item>
                     <item>
-                     <widget class="QLabel" name="label_country">
+                     <widget class="QLabel" name="org_country_label">
                       <property name="enabled">
                        <bool>true</bool>
                       </property>
@@ -1382,7 +1669,7 @@ color: rgb(255, 255, 255);
                      </spacer>
                     </item>
                     <item>
-                     <widget class="QLabel" name="foundation_label">
+                     <widget class="QLabel" name="org_found_label">
                       <property name="enabled">
                        <bool>true</bool>
                       </property>
@@ -1438,7 +1725,7 @@ color: rgb(255, 255, 255);
                      <number>9</number>
                     </property>
                     <item>
-                     <widget class="QLabel" name="label_field">
+                     <widget class="QLabel" name="org_label">
                       <property name="enabled">
                        <bool>true</bool>
                       </property>
@@ -1456,7 +1743,7 @@ color: rgb(255, 255, 255);
                       </property>
                       <property name="font">
                        <font>
-                        <family>Arial Black</family>
+                        <family>Arial</family>
                         <pointsize>14</pointsize>
                         <weight>50</weight>
                         <bold>false</bold>
@@ -1498,7 +1785,7 @@ background-color: rgb(200, 200, 200);</string>
                      </spacer>
                     </item>
                     <item>
-                     <widget class="QLabel" name="country_field">
+                     <widget class="QLabel" name="org_country">
                       <property name="enabled">
                        <bool>true</bool>
                       </property>
@@ -1516,7 +1803,7 @@ background-color: rgb(200, 200, 200);</string>
                       </property>
                       <property name="font">
                        <font>
-                        <family>Arial Black</family>
+                        <family>Arial</family>
                         <pointsize>14</pointsize>
                         <weight>50</weight>
                         <bold>false</bold>
@@ -1558,7 +1845,7 @@ background-color: rgb(200, 200, 200);</string>
                      </spacer>
                     </item>
                     <item>
-                     <widget class="QLabel" name="foundation_field">
+                     <widget class="QLabel" name="org_found">
                       <property name="enabled">
                        <bool>true</bool>
                       </property>
@@ -1576,7 +1863,7 @@ background-color: rgb(200, 200, 200);</string>
                       </property>
                       <property name="font">
                        <font>
-                        <family>Arial Black</family>
+                        <family>Arial</family>
                         <pointsize>14</pointsize>
                         <weight>50</weight>
                         <bold>false</bold>
@@ -1637,7 +1924,7 @@ background-color: rgb(200, 200, 200);</string>
                    </spacer>
                   </item>
                   <item>
-                   <widget class="QPushButton" name="founders_button">
+                   <widget class="QPushButton" name="org_founders">
                     <property name="enabled">
                      <bool>false</bool>
                     </property>
@@ -1698,7 +1985,7 @@ color: rgb(0, 0, 0);
                </layout>
               </item>
               <item>
-               <spacer name="horizontalSpacer_12">
+               <spacer name="horizontalSpacer_11">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -1714,7 +2001,7 @@ color: rgb(0, 0, 0);
                </spacer>
               </item>
               <item>
-               <spacer name="horizontalSpacer_11">
+               <spacer name="horizontalSpacer_10">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -1759,7 +2046,7 @@ color: rgb(0, 0, 0);
                 <item alignment="Qt::AlignRight|Qt::AlignTop">
                  <widget class="QPushButton" name="org_add">
                   <property name="enabled">
-                   <bool>true</bool>
+                   <bool>false</bool>
                   </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -1895,7 +2182,7 @@ color: rgb(0, 0, 0);
             </item>
            </layout>
           </widget>
-          <widget class="QWidget" name="page_3">
+          <widget class="QWidget" name="fndrs_menu">
            <layout class="QGridLayout" name="gridLayout_4">
             <item row="0" column="0">
              <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -1916,93 +2203,243 @@ color: rgb(0, 0, 0);
                </spacer>
               </item>
               <item>
-               <widget class="QListWidget" name="fndr_list">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>296</width>
-                  <height>206</height>
-                 </size>
-                </property>
-                <property name="font">
-                 <font>
-                  <family>Arial</family>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">background: rgb(27, 27, 27);
+               <layout class="QVBoxLayout" name="verticalLayout_13">
+                <item>
+                 <widget class="QLabel" name="fndr_list_label">
+                  <property name="font">
+                   <font>
+                    <family>Arial Black</family>
+                    <pointsize>15</pointsize>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(255, 163, 26);</string>
+                  </property>
+                  <property name="text">
+                   <string>FOUNDERS</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="fndr_search">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>Arial</family>
+                    <pointsize>14</pointsize>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(100, 100, 100);
+border-radius:10px;</string>
+                  </property>
+                  <property name="maxLength">
+                   <number>30</number>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="placeholderText">
+                   <string>search</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QListWidget" name="fndr_list">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>296</width>
+                    <height>206</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>Arial</family>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background: rgb(27, 27, 27);
 color: rgb(255, 255, 255);
 QListView::item:selected { background:  rgb(255, 163, 26); color: rgb(0, 0, 0)}</string>
-                </property>
-                <property name="tabKeyNavigation">
-                 <bool>true</bool>
-                </property>
-                <property name="textElideMode">
-                 <enum>Qt::ElideRight</enum>
-                </property>
-                <property name="viewMode">
-                 <enum>QListView::ListMode</enum>
-                </property>
-                <property name="selectionRectVisible">
-                 <bool>false</bool>
-                </property>
-                <item>
-                 <property name="text">
-                  <string>FOUNDERS</string>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>Arial</family>
-                   <pointsize>14</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="textAlignment">
-                  <set>AlignCenter</set>
-                 </property>
-                 <property name="background">
-                  <brush brushstyle="NoBrush">
-                   <color alpha="255">
-                    <red>108</red>
-                    <green>108</green>
-                    <blue>108</blue>
-                   </color>
-                  </brush>
-                 </property>
-                 <property name="foreground">
-                  <brush brushstyle="SolidPattern">
-                   <color alpha="255">
-                    <red>255</red>
-                    <green>163</green>
-                    <blue>26</blue>
-                   </color>
-                  </brush>
-                 </property>
-                 <property name="flags">
-                  <set>NoItemFlags</set>
-                 </property>
+                  </property>
+                  <property name="verticalScrollBarPolicy">
+                   <enum>Qt::ScrollBarAsNeeded</enum>
+                  </property>
+                  <property name="horizontalScrollBarPolicy">
+                   <enum>Qt::ScrollBarAsNeeded</enum>
+                  </property>
+                  <property name="tabKeyNavigation">
+                   <bool>true</bool>
+                  </property>
+                  <property name="textElideMode">
+                   <enum>Qt::ElideRight</enum>
+                  </property>
+                  <property name="viewMode">
+                   <enum>QListView::ListMode</enum>
+                  </property>
+                  <property name="selectionRectVisible">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
                 </item>
                 <item>
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="background">
-                  <brush brushstyle="BDiagPattern">
-                   <color alpha="255">
-                    <red>79</red>
-                    <green>80</green>
-                    <blue>80</blue>
-                   </color>
-                  </brush>
-                 </property>
-                 <property name="flags">
-                  <set>NoItemFlags</set>
-                 </property>
+                 <layout class="QHBoxLayout" name="horizontalLayout">
+                  <item>
+                   <widget class="QSpinBox" name="fndr_prev">
+                    <property name="minimumSize">
+                     <size>
+                      <width>30</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>Arial Black</family>
+                      <pointsize>14</pointsize>
+                     </font>
+                    </property>
+                    <property name="focusPolicy">
+                     <enum>Qt::NoFocus</enum>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(255, 163, 26);
+border-radius:10px;
+color: rgb(0, 0, 0);
+</string>
+                    </property>
+                    <property name="frame">
+                     <bool>true</bool>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                    <property name="readOnly">
+                     <bool>true</bool>
+                    </property>
+                    <property name="buttonSymbols">
+                     <enum>QAbstractSpinBox::NoButtons</enum>
+                    </property>
+                    <property name="minimum">
+                     <number>0</number>
+                    </property>
+                    <property name="maximum">
+                     <number>1</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="fndr_page">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">color: rgb(50, 50, 50);
+border-radius:10px;
+background-color: rgb(200, 200, 200);</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_2">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QSpinBox" name="fndr_next">
+                    <property name="minimumSize">
+                     <size>
+                      <width>30</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>Arial Black</family>
+                      <pointsize>14</pointsize>
+                     </font>
+                    </property>
+                    <property name="focusPolicy">
+                     <enum>Qt::NoFocus</enum>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(255, 163, 26);
+border-radius:10px;
+color: rgb(0, 0, 0);
+</string>
+                    </property>
+                    <property name="frame">
+                     <bool>true</bool>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                    <property name="readOnly">
+                     <bool>true</bool>
+                    </property>
+                    <property name="buttonSymbols">
+                     <enum>QAbstractSpinBox::NoButtons</enum>
+                    </property>
+                    <property name="minimum">
+                     <number>0</number>
+                    </property>
+                    <property name="maximum">
+                     <number>1</number>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
                 </item>
-               </widget>
+               </layout>
               </item>
               <item>
                <widget class="Line" name="line_4">
@@ -2190,7 +2627,7 @@ background-color: rgb(200, 200, 200);</string>
                      <number>9</number>
                     </property>
                     <item>
-                     <widget class="QLabel" name="name_label">
+                     <widget class="QLabel" name="fndr_name_label">
                       <property name="enabled">
                        <bool>true</bool>
                       </property>
@@ -2243,7 +2680,7 @@ color: rgb(255, 255, 255);
                      </spacer>
                     </item>
                     <item>
-                     <widget class="QLabel" name="age_label">
+                     <widget class="QLabel" name="fndr_age_label">
                       <property name="enabled">
                        <bool>true</bool>
                       </property>
@@ -2296,7 +2733,7 @@ color: rgb(255, 255, 255);
                      </spacer>
                     </item>
                     <item>
-                     <widget class="QLabel" name="wealth_label">
+                     <widget class="QLabel" name="fndr_wealth_label">
                       <property name="enabled">
                        <bool>true</bool>
                       </property>
@@ -2352,7 +2789,7 @@ color: rgb(255, 255, 255);
                      <number>9</number>
                     </property>
                     <item>
-                     <widget class="QLabel" name="name">
+                     <widget class="QLabel" name="fndr_name">
                       <property name="enabled">
                        <bool>true</bool>
                       </property>
@@ -2371,9 +2808,9 @@ color: rgb(255, 255, 255);
                       <property name="font">
                        <font>
                         <family>Arial</family>
-                        <pointsize>12</pointsize>
-                        <weight>75</weight>
-                        <bold>true</bold>
+                        <pointsize>14</pointsize>
+                        <weight>50</weight>
+                        <bold>false</bold>
                        </font>
                       </property>
                       <property name="styleSheet">
@@ -2412,9 +2849,9 @@ background-color: rgb(200, 200, 200);</string>
                      </spacer>
                     </item>
                     <item>
-                     <widget class="QSpinBox" name="age">
+                     <widget class="QLabel" name="fndr_age">
                       <property name="enabled">
-                       <bool>false</bool>
+                       <bool>true</bool>
                       </property>
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -2430,32 +2867,28 @@ background-color: rgb(200, 200, 200);</string>
                       </property>
                       <property name="font">
                        <font>
-                        <family>Arial Black</family>
-                        <pointsize>12</pointsize>
+                        <family>Arial</family>
+                        <pointsize>14</pointsize>
+                        <weight>50</weight>
+                        <bold>false</bold>
                        </font>
-                      </property>
-                      <property name="focusPolicy">
-                       <enum>Qt::NoFocus</enum>
                       </property>
                       <property name="styleSheet">
                        <string notr="true">color: rgb(100, 100, 100);
 border-radius:10px;
 background-color: rgb(200, 200, 200);</string>
                       </property>
-                      <property name="frame">
+                      <property name="text">
+                       <string/>
+                      </property>
+                      <property name="scaledContents">
                        <bool>true</bool>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignCenter</set>
                       </property>
-                      <property name="buttonSymbols">
-                       <enum>QAbstractSpinBox::NoButtons</enum>
-                      </property>
-                      <property name="keyboardTracking">
-                       <bool>false</bool>
-                      </property>
-                      <property name="singleStep">
-                       <number>0</number>
+                      <property name="wordWrap">
+                       <bool>true</bool>
                       </property>
                      </widget>
                     </item>
@@ -2476,9 +2909,9 @@ background-color: rgb(200, 200, 200);</string>
                      </spacer>
                     </item>
                     <item>
-                     <widget class="QSpinBox" name="wealth">
+                     <widget class="QLabel" name="fndr_wealth">
                       <property name="enabled">
-                       <bool>false</bool>
+                       <bool>true</bool>
                       </property>
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -2494,32 +2927,28 @@ background-color: rgb(200, 200, 200);</string>
                       </property>
                       <property name="font">
                        <font>
-                        <family>Arial Black</family>
-                        <pointsize>12</pointsize>
+                        <family>Arial</family>
+                        <pointsize>14</pointsize>
+                        <weight>50</weight>
+                        <bold>false</bold>
                        </font>
-                      </property>
-                      <property name="focusPolicy">
-                       <enum>Qt::NoFocus</enum>
                       </property>
                       <property name="styleSheet">
                        <string notr="true">color: rgb(100, 100, 100);
 border-radius:10px;
 background-color: rgb(200, 200, 200);</string>
                       </property>
-                      <property name="frame">
+                      <property name="text">
+                       <string/>
+                      </property>
+                      <property name="scaledContents">
                        <bool>true</bool>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignCenter</set>
                       </property>
-                      <property name="buttonSymbols">
-                       <enum>QAbstractSpinBox::NoButtons</enum>
-                      </property>
-                      <property name="keyboardTracking">
-                       <bool>false</bool>
-                      </property>
-                      <property name="singleStep">
-                       <number>0</number>
+                      <property name="wordWrap">
+                       <bool>true</bool>
                       </property>
                      </widget>
                     </item>
@@ -2859,19 +3288,18 @@ color: rgb(0, 0, 0);
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <tabstops>
-  <tabstop>login</tabstop>
-  <tabstop>password</tabstop>
-  <tabstop>confirm</tabstop>
-  <tabstop>Continue</tabstop>
+  <tabstop>login_login</tabstop>
+  <tabstop>login_pass</tabstop>
+  <tabstop>login_confirm</tabstop>
+  <tabstop>login_continue</tabstop>
   <tabstop>exit</tabstop>
-  <tabstop>close_db</tabstop>
-  <tabstop>edit_user</tabstop>
-  <tabstop>logout</tabstop>
+  <tabstop>close</tabstop>
+  <tabstop>ent_user_edit</tabstop>
+  <tabstop>ent_user_logout</tabstop>
   <tabstop>org_add</tabstop>
   <tabstop>org_edit</tabstop>
   <tabstop>org_del</tabstop>
-  <tabstop>founders_button</tabstop>
-  <tabstop>org_list</tabstop>
+  <tabstop>org_founders</tabstop>
  </tabstops>
  <resources/>
  <connections/>

@@ -1,400 +1,519 @@
 #include "mainwindow.h"
-#define normal "background-color: rgb(255, 163, 26); \
-border-radius:10px;                   \
-color: rgb(0, 0, 0);"
-#define wrong "color: rgb(0, 0, 0); \
-border-radius:10px;  \
-background-color: rgb(255, 62, 81);"
+#define normal                                                                 \
+    "background-color: rgb(255, 163, 26); border-radius:10px; color: rgb(0, 0, " \
+    "0);"
+#define wrong                                                                  \
+    "color: rgb(0, 0, 0); border-radius:10px; background-color: rgb(255, 62, "   \
+    "81);"
 
-MainWindow::MainWindow(QWidget *parent) :
-  QMainWindow(parent),
-  ui(new Ui::MainWindow)
-{
-  ui->setupUi(this);
-  storage_ = new SqliteStorage;
-  ui->close_db->setHidden(1);
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent), ui(new Ui::MainWindow) {
+    ui->setupUi(this);
+    storage_ = new SqliteStorage;
+    ui->close->setHidden(1);
+    ui->menu->setCurrentIndex(0);
+    ui->entities->setCurrentIndex(0);
+    ui->exit->setEnabled(1);
+    ui->main_new->setEnabled(1);
+    ui->main_open->setEnabled(1);
+    ui->placeholder->setHidden(1);
+    ui->placeholder_2->setHidden(1);
+    ui->placeholder_3->setHidden(1);
+    ui->menu->setCurrentIndex(0);
+    ui->entities->setCurrentIndex(0);
+    ui->fndr_prev->setHidden(1);
+    ui->fndr_next->setHidden(1);
+    ui->fndr_page->setHidden(1);
+    ui->org_prev->setHidden(1);
+    ui->org_next->setHidden(1);
+    ui->org_page->setHidden(1);
+    QValidator *validator = new QRegExpValidator(QRegExp("[a-zA-Z0-9]+"), this);
+    ui->login_login->setValidator(validator);
 }
 
-MainWindow::~MainWindow()
-{
-  if (storage_!=nullptr)
-    delete storage_;
-  delete ui;
+MainWindow::~MainWindow() {
+    if (storage_ != nullptr)
+        delete storage_;
+    delete ui;
 }
 
-void MainWindow::addOrg(const QVector<Org> & org) {
-  for (const Org& o: org) {
-    QVariant var =QVariant::fromValue(o);
-    QListWidgetItem * qOrg = new QListWidgetItem();
-    qOrg->setText(o.label);
-    qOrg->setData(Qt::UserRole,var);
-    qOrg->setTextAlignment(Qt::AlignHCenter);
-    ui->org_list->addItem(qOrg);
-  }
+/* ---- Global --- */
+void MainWindow::on_exit_clicked() {
+    if (storage_->isOpen())
+        storage_->close();
+    this->close();
+}
+void MainWindow::on_close_clicked() {
+    auth_user = nullopt;
+    storage_->close();
+    ui->close->setHidden(1);
+    ui->close->setDisabled(1);
+
+    ui->login_login->clear();
+    ui->login_pass->clear();
+    ui->login_confirm->clear();
+    ui->login_login->setDisabled(1);
+    ui->login_confirm->setDisabled(1);
+    ui->login_pass->setDisabled(1);
+    ui->login_continue->setDisabled(1);
+
+    ui->ent_user->clear();
+    ui->ent_user_edit->setDisabled(1);
+    ui->ent_user_logout->setDisabled(1);
+
+    ui->orgs_list->clear();
+    ui->org_label->clear();
+    ui->org_country->clear();
+    ui->org_add->setDisabled(1);
+    ui->org_edit->setDisabled(1);
+    ui->org_del->setDisabled(1);
+    ui->orgs_list->setDisabled(1);
+    ui->org_founders->setDisabled(1);
+
+    ui->fndr_list->setDisabled(1);
+    ui->fndr_name->clear();
+    ui->fndr_org->clear();
+    ui->fndr_age->clear();
+    ui->fndr_wealth->clear();
+    ui->fndr_add->setDisabled(1);
+    ui->fndr_edit->setDisabled(1);
+    ui->fndr_del->setDisabled(1);
+
+    ui->org_page->placeholderText().clear();
+    ui->org_page->clear();
+    ui->org_prev->setHidden(1);
+    ui->org_next->setHidden(1);
+
+    ui->menu->setCurrentIndex(0);
+    ui->entities->setCurrentIndex(0);
 }
 
-void MainWindow::addFndr(const QVector<Fndr> & fndr) {
-  for (const Fndr& f: fndr) {
-    QVariant var =QVariant::fromValue(f);
-    QListWidgetItem * qf = new QListWidgetItem();
-    qf->setText(f.name);
-    qf->setData(Qt::UserRole,var);
-    qf->setTextAlignment(Qt::AlignHCenter);
-    ui->fndr_list->addItem(qf);
-  }
+void MainWindow::closeEvent(QCloseEvent *e) {
+    (QMessageBox::question(this, "Ex it", "Рили?") ==
+            QMessageBox::StandardButton::Yes)
+            ? e->accept()
+            : e->ignore();
+}
+
+void MainWindow::addOrg(const QVector<Org> &org) {
+    ui->orgs_list->setEnabled(1);
+    foreach (const Org &o, org) {
+        QVariant var = QVariant::fromValue(o);
+        QListWidgetItem *qOrg = new QListWidgetItem();
+        qOrg->setText(o.label);
+        qOrg->setData(Qt::UserRole, var);
+        qOrg->setTextAlignment(Qt::AlignHCenter);
+        ui->orgs_list->addItem(qOrg);
+    }
+}
+
+void MainWindow::addFndr(const QVector<Fndr> &fndr) {
+    for (const Fndr &f : fndr) {
+        QVariant var = QVariant::fromValue(f);
+        QListWidgetItem *qf = new QListWidgetItem();
+        qf->setText(f.name);
+        qf->setData(Qt::UserRole, var);
+        qf->setTextAlignment(Qt::AlignHCenter);
+        ui->fndr_list->addItem(qf);
+    }
+}
+
+void MainWindow::org_push(Org *o) {
+    o->id = storage_->insertOrg(*o, auth_user.value().id);
+    QListWidgetItem *item = new QListWidgetItem();
+
+    QVariant var;
+    var.setValue(*o);
+    item->setText(o->label);
+    item->setData(Qt::UserRole, var);
+    item->setTextAlignment(Qt::AlignHCenter);
+
+    ui->orgs_list->addItem(item);
+}
+
+void MainWindow::fndr_push(Fndr *f) {
+    int id = storage_->insertFndr(*f);
+    storage_->insertOrgFndr(global_org.id, id);
+    QListWidgetItem *item = new QListWidgetItem();
+
+    QVariant var;
+    var.setValue(*f);
+    item->setText(f->name);
+    item->setData(Qt::UserRole, var);
+    item->setTextAlignment(Qt::AlignHCenter);
+
+    ui->fndr_list->addItem(item);
 }
 
 void MainWindow::user_update(User *u) {
-  auth_user.value().id = u->id;
-  auth_user.value().password = u->password;
-  auth_user.value().username = u->username;
-  ui->user_login->setText(u->username);
-  storage_->open();
-  if (!storage_->change_user_options(u->id, u->username, u->password)) qDebug() << "wrong chng usr";
-  storage_->close();
-}
-
-void MainWindow::org_update(Org* o) {
-  storage_->open();
-  QListWidgetItem* i = ui->org_list->selectedItems().at(0);
-  Org org = i->data(Qt::UserRole).value<Org>();
-  o->id = org.id;
-  if (!storage_->updateOrg(*o)) {
-    qDebug() << "Err on update";
-    return;
-  }
-  QVariant var;
-  var.setValue(*o);
-  i->setText(o->label);
-  i->setData(Qt::UserRole, var);
-  i->setTextAlignment(Qt::AlignHCenter);
-  on_org_list_itemClicked(i);
-  storage_->close();
-}
-
-void MainWindow::fndr_update(Fndr* f) {
-  storage_->open();
-  QListWidgetItem* i = ui->fndr_list->selectedItems().at(0);
-  Fndr fndr = i->data(Qt::UserRole).value<Fndr>();
-  f->id = fndr.id;
-  if (!storage_->updateFndr(*f)) {
-    qDebug() << "Err on update";
-    return;
-  }
-  QVariant var;
-  var.setValue(*f);
-  i->setText(f->name);
-  i->setData(Qt::UserRole, var);
-  i->setTextAlignment(Qt::AlignHCenter);
-  on_org_list_itemClicked(i);
-  storage_->close();
-}
-
-void MainWindow::org_push(Org* o) {
-  storage_->open();
-  storage_->insertOrg(*o);
-  QListWidgetItem* item = new QListWidgetItem();
-
-  QVariant var;
-  var.setValue(*o);
-  item->setText(o->label);
-  item->setData(Qt::UserRole, var);
-  item->setTextAlignment(Qt::AlignHCenter);
-
-  ui->org_list->addItem(item);
-  storage_->close();
-}
-
-void MainWindow::fndr_push(Fndr* f) {
-  storage_->open();
-  storage_->insertFndr(*f);
-  QListWidgetItem* item = new QListWidgetItem();
-
-  QVariant var;
-  var.setValue(*f);
-  item->setText(f->name);
-  item->setData(Qt::UserRole, var);
-  item->setTextAlignment(Qt::AlignHCenter);
-
-  ui->fndr_list->addItem(item);
-  storage_->close();
-}
-
-void MainWindow::on_Continue_clicked() {
-  QString l(ui->login->text()), p(ui->password->text()), c(ui->confirm->text());
-  ui->login->clear();
-  ui->password->clear();
-  ui->confirm->clear();
-  ui->Login_label->setStyleSheet((l.isEmpty())?wrong:normal);
-  ui->Password_label->setStyleSheet(p.isEmpty()?wrong:normal);
-  if (ui->Password_label->styleSheet()==wrong||ui->Login_label->styleSheet()==wrong) return;
-  if (p!=c && !c.isEmpty()){ ui->Password_label->setStyleSheet(wrong); ui->Confirm_label->setStyleSheet(wrong); return;}
-  if (!c.isEmpty()){
-    storage_->open();
-    bool status_reg = storage_->registration_user(l, p);
-    storage_->close();
-    if (!status_reg) {
-      QMessageBox::warning(this, "Registration", "This username is engaged", QMessageBox::Ok);
-      return;
+    if (!storage_->change_user_options(u->id, u->username, u->password)) {
+        qDebug() << "wrong chng usr";
+        QMessageBox::warning(this, "Error", "Error on user changing", QMessageBox::Ok);
     }
-  }
-  storage_->open();
-  auth_user = storage_->getUserAuth(l, p);
-  if (!auth_user) {
-    ui->Login_label->setStyleSheet(wrong);
-    ui->Password_label->setStyleSheet(wrong);
-    return;}
-  ui->edit_user->setEnabled(1);
-  ui->logout->setEnabled(1);
-  ui->user_login->setText(auth_user->username);
-  addOrg(storage_->getAllUserOrgs(auth_user.value().id));
-  storage_->close();
-  ui->stackedWidget->setCurrentIndex(2);
-  ui->stackedWidget_2->setCurrentIndex(0);
-  qDebug() << auth_user->id;
-  qDebug() << auth_user->password;
-  qDebug() << auth_user->username;
+    else {
+        auth_user.value().id = u->id;
+        auth_user.value().password = u->password;
+        auth_user.value().username = u->username;
+        ui->ent_user->setText(u->username);
+    }
 }
 
-void MainWindow::on_open_button_clicked() {
-  auto path=QFileDialog::getExistingDirectory(this,"Dialoh",".");
-  if (path.isEmpty()) return;
-  storage_->setName(path);
-  if (!storage_->exists()) { QMessageBox::warning(this, "Err","storage 404", QMessageBox::Ok); return; }
-  ui->stackedWidget->setCurrentIndex(1);
-  ui->close_db->setEnabled(1);
-  ui->close_db->setHidden(0);
+void MainWindow::org_update(Org *org) {
+    QListWidgetItem *item = ui->orgs_list->selectedItems().at(0);
+    Org orga = item->data(Qt::UserRole).value<Org>();
+    org->id = orga.id;
+    if (!storage_->updateOrg(*org)) {
+        qDebug() << "Err on update";
+        return;
+    }
+    QVariant var;
+    var.setValue(*org);
+    item->setText(org->label);
+    item->setData(Qt::UserRole, var);
+    item->setTextAlignment(Qt::AlignHCenter);
+    on_orgs_list_itemClicked(item);
 }
 
-void MainWindow::on_new_button_clicked() {
-  QFileDialog dialog;
-  dialog.setFileMode(QFileDialog::Directory);
-  QString path = dialog.getSaveFileName(this,"new",QDir::currentPath() + "/data","Folders");
-  if (path.isEmpty()) return;
-  storage_->setName(path);
-  if (storage_->newStorage()) {
-    ui->stackedWidget->setCurrentIndex(1);
-    ui->stackedWidget_2->setCurrentIndex(0);
-  }
-  ui->close_db->setEnabled(1);
-  ui->close_db->setHidden(0);
-}
-
-// FIELDS\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
-void MainWindow::on_password_textChanged(const QString &arg1) {
-  ui->Password_label->setStyleSheet(normal);
-  ui->confirm->clear();
-  if (arg1.length() != 0) ui->confirm->setEnabled(1);
-  else (ui->confirm->setEnabled(0));
-}
-
-void MainWindow::on_login_textChanged(const QString &){
-  ui->Login_label->setStyleSheet(normal);
-  ui->Password_label->setStyleSheet(normal);
-}
-
-void MainWindow::on_confirm_textChanged(const QString &) {
-  ui->Confirm_label->setStyleSheet(normal);
-  ui->Password_label->setStyleSheet(normal);
-}
-//\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
-//events
-void MainWindow::closeEvent(QCloseEvent *e) {(QMessageBox::question(this,"Ex it","Рили?")==QMessageBox::StandardButton::Yes)?e->accept():e->ignore();}
-
-
-
-void MainWindow::on_org_list_itemClicked(QListWidgetItem *i) {
-  Org o = i->data(Qt::UserRole).value<Org>();
-  ui->label_field->setText(o.label);
-  ui->country_field->setText(o.country);
-  ui->foundation_field->setText(QString::fromStdString(to_string(o.founded_date)));
-  ui->org_edit->setEnabled(1);
-  ui->org_del->setEnabled(1);
-  ui->founders_button->setEnabled(1);
-}
-
-void MainWindow::on_logout_clicked() {
-  auth_user = nullopt;
-  ui->edit_user->setEnabled(0);
-  ui->logout->setEnabled(0);
-  ui->user_login->clear();
-  ui->stackedWidget->setCurrentIndex(1);
-  ui->stackedWidget_2->setCurrentIndex(0);
-}
-
-void MainWindow::on_exit_clicked() {
-  this->close();
-}
-
-void MainWindow::on_close_db_clicked() {
-  storage_->close();
-  auth_user = nullopt;
-  ui->edit_user->setEnabled(0);
-  ui->logout->setEnabled(0);
-  ui->user_login->clear();
-  ui->stackedWidget->setCurrentIndex(0);
-  ui->stackedWidget_2->setCurrentIndex(0);
-  ui->close_db->setDisabled(1);
-  ui->close_db->setHidden(1);
+void MainWindow::fndr_update(Fndr *fndr) {
+    QListWidgetItem *item = ui->fndr_list->selectedItems().at(0);
+    Fndr fn = item->data(Qt::UserRole).value<Fndr>();
+    fndr->id = fn.id;
+    if (!storage_->updateFndr(*fndr)) {
+        qDebug() << "Err on update";
+        return;
+    }
+    QVariant var;
+    var.setValue(*fndr);
+    item->setText(fndr->name);
+    item->setData(Qt::UserRole, var);
+    item->setTextAlignment(Qt::AlignHCenter);
+    on_fndr_list_itemClicked(item);
 }
 
 void MainWindow::dialogDisabling() {
-  QGraphicsBlurEffect* effect = new QGraphicsBlurEffect(this);
-  if (ui->centralwidget->isEnabled()) {
-    ui->centralwidget->setEnabled(0);
-    setGraphicsEffect(effect);
-  } else {
-    ui->centralwidget->setEnabled(1);
-    setGraphicsEffect(0);
-  }
+    QGraphicsBlurEffect *effect = new QGraphicsBlurEffect(this);
+    if (ui->centralwidget->isEnabled()) {
+        ui->centralwidget->setEnabled(0);
+        setGraphicsEffect(effect);
+    } else {
+        ui->centralwidget->setEnabled(1);
+        setGraphicsEffect(0);
+    }
 }
 
-void MainWindow::on_edit_user_clicked() {
-  optional<User> u = auth_user;
-  useredit = new UserEdit(this);
-  dialogDisabling();
-  useredit->show();
-  connect(this, SIGNAL(user_to_edit(optional<User>*)), useredit, SLOT(edit(optional<User>*)));
-  connect(useredit, SIGNAL(upd_user(User*)), this, SLOT(user_update(User*)));
-  connect(useredit, SIGNAL(disableToggle()), SLOT(dialogDisabling()));
-  emit(user_to_edit(&u));
+/* ---- Main Menu ---- */
+void MainWindow::on_main_open_clicked() {
+    auto path = QFileDialog::getExistingDirectory(this, "Dialoh", ".");
+    if (path.isEmpty())
+        return;
+    storage_->setName(path);
+    if (!storage_->exists()) {
+        QMessageBox::warning(this, "Err", "storage 404", QMessageBox::Ok);
+        return;
+    }
+    ui->menu->setCurrentIndex(1);
+    ui->close->setEnabled(1);
+    ui->close->setHidden(0);
+    ui->login_login->setEnabled(1);
+    storage_->open();
+    qDebug() << "Opened on: " << path;
+}
+void MainWindow::on_main_new_clicked() {
+    QFileDialog dialog;
+    dialog.setFileMode(QFileDialog::Directory);
+    QString path = dialog.getSaveFileName(
+                this, "new", QDir::currentPath() + "/data", "Folders");
+    if (path.isEmpty())
+        return;
+    storage_->setName(path);
+    if (!storage_->newStorage())
+        return;
+    ui->menu->setCurrentIndex(1);
+    ui->close->setEnabled(1);
+    ui->close->setHidden(0);
+    ui->login_login->setEnabled(1);
+    storage_->open();
+    qDebug() << "Opened on: " << path;
 }
 
-void MainWindow::on_org_edit_clicked() {
-  orgedit = new OrgEdit(this);
-  dialogDisabling();
-  orgedit->show();
-  connect(this, SIGNAL(org_to_update(QListWidgetItem*)), orgedit,
-          SLOT(edit_org(QListWidgetItem*)));
-  connect(orgedit, SIGNAL(upd_org(Org*)), this,
-          SLOT(org_update(Org*)));
-  connect(orgedit, SIGNAL(disableToggle()), SLOT(dialogDisabling()));
+/* ---- Login Menu ---- */
+void MainWindow::on_login_login_textChanged(const QString &text) {
+    ui->login_login_label->setStyleSheet(normal);
+    ui->login_pass_label->setStyleSheet(normal);
+    ui->login_pass->clear();
+    ui->login_confirm->clear();
+    ui->login_pass->setEnabled((text.isEmpty()) ? 0 : 1);
+}
+void MainWindow::on_login_confirm_textChanged(const QString &) {
+    ui->login_confirm_label->setStyleSheet(normal);
+    ui->login_pass_label->setStyleSheet(normal);
+}
+void MainWindow::on_login_pass_textChanged(const QString &text) {
+    ui->login_pass_label->setStyleSheet(normal);
+    ui->login_confirm->clear();
+    ui->login_confirm->setEnabled((text.isEmpty()) ? 0 : 1);
+    ui->login_continue->setEnabled((text.isEmpty()) ? 0 : 1);
+}
+void MainWindow::on_login_continue_clicked() {
+    QString login = ui->login_login->text();
+    QString pass = ui->login_pass->text();
+    QString confirm = ui->login_confirm->text();
 
-  emit(org_to_update(ui->org_list->selectedItems().at(0)));
+    ui->login_login_label->setStyleSheet((login.isEmpty()) ? wrong : normal);
+    ui->login_pass_label->setStyleSheet(pass.isEmpty() ? wrong : normal);
+
+    if (login.isEmpty() || pass.isEmpty())
+        return;
+    else if (pass != confirm && !confirm.isEmpty()) {
+        ui->login_pass_label->setStyleSheet(wrong);
+        ui->login_confirm_label->setStyleSheet(wrong);
+        return;
+    } else if (!confirm.isEmpty()) {
+        bool status_reg = storage_->registration_user(login, pass);
+        if (!status_reg) {
+            QMessageBox::warning(this, "Registration", "This username is occupied",
+                                 QMessageBox::Ok);
+            return;
+        }
+    }
+    auth_user = storage_->getUserAuth(login, pass);
+    if (!auth_user) {
+        ui->login_login_label->setStyleSheet(wrong);
+        ui->login_pass_label->setStyleSheet(wrong);
+        return;
+    }
+    qDebug() << auth_user->id;
+    qDebug() << auth_user->username;
+    qDebug() << auth_user->password;
+
+    addOrg(storage_->getAllUserOrgs(auth_user.value().id, osearch, org_curr_page));
+    ui->login_login->clear();
+    ui->login_pass->clear();
+    ui->login_confirm->clear();
+    ui->login_confirm->setDisabled(1);
+    ui->login_pass->setDisabled(1);
+    ui->login_continue->setDisabled(1);
+
+    ui->org_add->setEnabled(1);
+    org_curr_page=0;
+    ui->org_page->setPlaceholderText(QString::fromStdString("page: " + to_string(org_curr_page + 1)));
+    ui->org_page->setHidden(0);
+    org_max_page=ceil(storage_->countOrgs(auth_user->id, osearch) / 10 );
+    if (org_max_page != 0) {
+        ui->org_next->setHidden(0);
+        ui->org_next->setValue(org_curr_page + 2);
+    }
+
+    ui->ent_user->setText(login);
+    ui->ent_user_edit->setEnabled(1);
+    ui->ent_user_logout->setEnabled(1);
+
+    ui->menu->setCurrentIndex(2);
+}
+/* ---- User Menu ---- */
+void MainWindow::on_ent_user_edit_clicked() {
+    optional<User> user = auth_user;
+    useredit = new UserEdit(this);
+    dialogDisabling();
+    useredit->show();
+    connect(this, SIGNAL(user_to_edit(optional<User> *)), useredit, SLOT(edit(optional<User> *)));
+    connect(useredit, SIGNAL(upd_user(User *)), this, SLOT(user_update(User*)));
+    connect(useredit, SIGNAL(disableToggle()), SLOT(dialogDisabling()));
+    emit(user_to_edit(&user));
 }
 
+void MainWindow::on_ent_user_logout_clicked() {
+    auth_user = nullopt;
+    ui->ent_user->clear();
+    ui->ent_user_edit->setDisabled(1);
+    ui->ent_user_logout->setDisabled(1);
+
+    ui->orgs_list->clear();
+    ui->org_label->clear();
+    ui->org_country->clear();
+    ui->org_add->setDisabled(1);
+    ui->org_edit->setDisabled(1);
+    ui->org_del->setDisabled(1);
+    ui->orgs_list->setDisabled(1);
+    ui->org_founders->setDisabled(1);
+
+    ui->fndr_list->setDisabled(1);
+    ui->fndr_name->clear();
+    ui->fndr_org->clear();
+    ui->fndr_age->clear();
+    ui->fndr_wealth->clear();
+    ui->fndr_add->setDisabled(1);
+    ui->fndr_edit->setDisabled(1);
+    ui->fndr_del->setDisabled(1);
+
+    ui->org_page->placeholderText().clear();
+    ui->org_page->clear();
+    ui->org_prev->setHidden(1);
+    ui->org_next->setHidden(1);
+
+    ui->fndr_page->placeholderText().clear();
+    ui->fndr_page->clear();
+    ui->fndr_prev->setHidden(1);
+    ui->fndr_next->setHidden(1);
+
+    ui->menu->setCurrentIndex(1);
+    ui->entities->setCurrentIndex(0);
+}
+
+/* ---- Orgs menu ----
+ * ----- Windows ----- */
 void MainWindow::on_org_add_clicked() {
-  orgadd = new OrgAdd(this);
-  dialogDisabling();
-  orgadd->show();
-  connect(orgadd, SIGNAL(org_add(Org*)), SLOT(org_push(Org*)));
-  connect(orgadd, SIGNAL(disableToggle()), SLOT(dialogDisabling()));
+    orgadd = new OrgAdd(this);
+    dialogDisabling();
+    orgadd->show();
+    connect(orgadd, SIGNAL(org_add(Org *)), SLOT(org_push(Org *)));
+    connect(orgadd, SIGNAL(disableToggle()), SLOT(dialogDisabling()));
 }
+void MainWindow::on_org_edit_clicked() {
+    if (!ui->orgs_list->selectedItems().at(0)) return;
+    orgedit = new OrgEdit(this);
+    dialogDisabling();
+    orgedit->show();
+    connect(this, SIGNAL(org_to_update(QListWidgetItem *)), orgedit, SLOT(edit_org(QListWidgetItem *)));
+    connect(orgedit, SIGNAL(upd_org(Org *)), this, SLOT(org_update(Org *)));
+    connect(orgedit, SIGNAL(disableToggle()), SLOT(dialogDisabling()));
 
-void MainWindow::on_founders_button_clicked() {
-  storage_->open();
-  QVector fndrs = storage_->getAllOrgsFndrs(ui->org_list->selectedItems().at(0)->data(Qt::UserRole).value<Org>().id);
-  storage_->close();
-  ui->fndr_org->setText(ui->org_list->selectedItems().at(0)->data(Qt::UserRole).value<Org>().label);
-  addFndr(fndrs);
-  ui->stackedWidget_2->setCurrentIndex(1);
-  ui->fndr_add->setEnabled(1);
-}
-
-void MainWindow::on_fndr_list_itemClicked(QListWidgetItem *i) {
-  Fndr f = i->data(Qt::UserRole).value<Fndr>();
-  ui->name->setText(f.name);
-  ui->age->setValue(f.age);
-  ui->wealth->setValue(f.wealth);
-  ui->fndr_edit->setEnabled(1);
-  ui->fndr_del->setEnabled(1);
-  ui->back->setEnabled(1);
-}
-
-void MainWindow::on_fndr_add_clicked() {
-  fndradd = new FndrAdd(this);
-  dialogDisabling();
-  fndradd->show();
-  connect(fndradd, SIGNAL(fndr_add(Fndr*)), SLOT(fndr_push(Fndr*)));
-  connect(fndradd, SIGNAL(disableToggle()), SLOT(dialogDisabling()));
+    emit(org_to_update(ui->orgs_list->selectedItems().at(0)));
 }
 
 void MainWindow::on_org_del_clicked() {
-  QMessageBox::StandardButton answer;
-  answer = QMessageBox::question(this, "Deletion", "Really?",
-                                 QMessageBox::Yes | QMessageBox::No);
-  if (answer == QMessageBox::No) return;
-  QList<QListWidgetItem*> items = ui->org_list->selectedItems();
-  if (items.at(0) == NULL) return;
-  foreach (QListWidgetItem* item, items) {
-    items = ui->org_list->selectedItems();
-    Org org = item->data(Qt::UserRole).value<Org>();
-    qDebug() << "deletion: " << org.id;
-    storage_->removeOrg(org.id);
-    delete ui->org_list->takeItem(ui->org_list->row(item));
-  }
-  QVector<Org> orgs = storage_->getAllOrgs();
-  if (orgs.empty()) {
+    if (!ui->orgs_list->selectedItems().at(0)) return;
+    QMessageBox::StandardButton answer;
+    answer = QMessageBox::question(this, "Deletion", "Really?",
+                                   QMessageBox::Yes | QMessageBox::No);
+    if (answer == QMessageBox::No)
+        return;
+    QVector<Fndr> fndrs = storage_->getAllOrgsFndrs(global_org.id, fsearch);
+    for ( auto &item: fndrs) {
+        storage_->removeOrgFndr(global_org.id, item.id);
+        storage_->removeFndr(item.id);
+    }
+    storage_->removeOrg(global_org.id);
+
+    delete ui->orgs_list->takeItem(ui->orgs_list->row(ui->orgs_list->selectedItems().at(0)));
     ui->org_del->setEnabled(false);
     ui->org_edit->setEnabled(false);
 
-    ui->label_field->setText("");
-    ui->country_field->setText("");
-    ui->foundation_field->setText("");
-  } else {
-    items = ui->org_list->selectedItems();
-    QListWidgetItem* item = items.at(0);
-    QVariant var = item->data(Qt::UserRole);
-    Org org = var.value<Org>();
-
-    ui->label_field->setText(org.label);
-    ui->country_field->setText(org.country);
-    ui->foundation_field->setText(QString(org.founded_date));
-  }
+    ui->org_label->setText("");
+    ui->org_country->setText("");
+    ui->org_found->setText("");
 }
 
-void MainWindow::on_back_clicked() {
-  ui->fndr_edit->setEnabled(0);
-  ui->fndr_del->setEnabled(0);
-  ui->back->setEnabled(0);
-  ui->label_field->setText("");
-  ui->country_field->setText("");
-  ui->foundation_field->setText(QString(""));
+/* Element */
+void MainWindow::on_orgs_list_itemClicked(QListWidgetItem* item) {
+    global_org = item->data(Qt::UserRole).value<Org>();
+    ui->org_label->setText(global_org.label);
+    ui->org_country->setText(global_org.country);
+    ui->org_found->setText(QString::fromStdString(to_string(global_org.founded_date)));
+    ui->org_edit->setEnabled(1);
+    ui->org_del->setEnabled(1);
+    ui->org_founders->setEnabled(1);
 }
 
-void MainWindow::on_fndr_del_clicked() {
-  QMessageBox::StandardButton answer;
-  answer = QMessageBox::question(this, "Deletion", "Really?",
-                                 QMessageBox::Yes | QMessageBox::No);
-  if (answer == QMessageBox::No) return;
-  QList<QListWidgetItem*> items = ui->fndr_list->selectedItems();
-  if (items.at(0) == NULL) return;
-  foreach (QListWidgetItem* item, items) {
-    items = ui->fndr_list->selectedItems();
-    Fndr fndr = item->data(Qt::UserRole).value<Fndr>();
-    qDebug() << "deletion: " << fndr.id;
-    storage_->removeOrg(fndr.id);
-    delete ui->org_list->takeItem(ui->fndr_list->row(item));
-  }
-  QVector<Fndr> fndrs = storage_->getAllOrgsFndrs(ui->org_list->selectedItems().at(0)->data(Qt::UserRole).value<Org>().id);
-  if (fndrs.empty()) {
-    ui->fndr_del->setEnabled(false);
-    ui->fndr_edit->setEnabled(false);
-
-    ui->name->setText("");
-    ui->age->setValue(0);
-    ui->wealth->setValue(0);
-  } else {
-    items = ui->fndr_list->selectedItems();
-    QListWidgetItem* item = items.at(0);
-    QVariant var = item->data(Qt::UserRole);
-    Fndr f = var.value<Fndr>();
-
-    ui->name->setText(f.name);
-    ui->country_field->setText(QString(f.age));
-    ui->foundation_field->setText(QString(f.wealth));
-  }
+void MainWindow::on_org_founders_clicked() {
+    if (!ui->orgs_list->selectedItems().at(0)) return;
+    QVector fndrs = storage_->getAllOrgsFndrs(global_org.id, fsearch);
+    ui->fndr_org->setText(ui->orgs_list->selectedItems()
+                          .at(0)
+                          ->data(Qt::UserRole)
+                          .value<Org>()
+                          .label);
+    addFndr(fndrs);
+    ui->entities->setCurrentIndex(1);
+    ui->fndr_add->setEnabled(1);
+    ui->fndr_list->setEnabled(1);
+}
+/* ---- Fndrs menu ----
+ * ----- Windows ----- */
+void MainWindow::on_fndr_add_clicked() {
+    fndradd = new FndrAdd(this);
+    dialogDisabling();
+    fndradd->show();
+    connect(fndradd, SIGNAL(fndr_add(Fndr *)), SLOT(fndr_push(Fndr *)));
+    connect(fndradd, SIGNAL(disableToggle()), SLOT(dialogDisabling()));
 }
 
 void MainWindow::on_fndr_edit_clicked() {
-  fndredit = new FndrEdit(this);
-  dialogDisabling();
-  fndredit->show();
-  connect(this, SIGNAL(fndr_to_update(QListWidgetItem*)), fndredit,
-          SLOT(edit_fndr(QListWidgetItem*)));
-  connect(fndredit, SIGNAL(upd_fndr(Fndr*)), this,
-          SLOT(fndr_update(Fndr*)));
-  connect(fndredit, SIGNAL(disableToggle()), SLOT(dialogDisabling()));
+    if (!ui->fndr_list->selectedItems().at(0)) return;
+    fndredit = new FndrEdit(this);
+    dialogDisabling();
+    fndredit->show();
+    connect(this, SIGNAL(fndr_to_update(QListWidgetItem *)), fndredit,SLOT(edit_fndr(QListWidgetItem *)));
+    connect(fndredit, SIGNAL(upd_fndr(Fndr *)), this, SLOT(fndr_update(Fndr*)));
+    connect(fndredit, SIGNAL(disableToggle()), SLOT(dialogDisabling()));
+    emit(org_to_update(ui->fndr_list->selectedItems().at(0)));
+}
 
-  emit(org_to_update(ui->fndr_list->selectedItems().at(0)));
+
+void MainWindow::on_fndr_del_clicked() {
+    if (!ui->fndr_list->selectedItems().at(0)) return;
+    QMessageBox::StandardButton answer;
+    answer = QMessageBox::question(this, "Deletion", "Really?",
+                                   QMessageBox::Yes | QMessageBox::No);
+    if (answer == QMessageBox::No) return;
+    auto item = ui->fndr_list->selectedItems().at(0);
+    Fndr fndr = item->data(Qt::UserRole).value<Fndr>();
+    qDebug() << "deletion: " << fndr.id;
+    storage_->removeFndr(fndr.id);
+    storage_->removeOrgFndr(global_org.id, fndr.id);
+    delete ui->fndr_list->takeItem(ui->fndr_list->row(item));
+    auto fndrs = storage_->getAllOrgsFndrs(global_org.id, fsearch);
+    if (fndrs.empty()) {
+        ui->fndr_del->setEnabled(false);
+        ui->fndr_edit->setEnabled(false);
+
+        ui->fndr_name->setText("");
+        ui->fndr_age->setText("");
+        ui->fndr_wealth->setText("");
+    } else {
+        fndr = ui->fndr_list->selectedItems().at(0)->data(Qt::UserRole).value<Fndr>();
+
+        ui->fndr_name->setText(fndr.name);
+        ui->fndr_age->setText(QString::fromStdString(to_string(fndr.age)));
+        ui->fndr_wealth->setText(QString::fromStdString(to_string(fndr.wealth)));
+    }
+}
+
+/* Element */
+void MainWindow::on_fndr_list_itemClicked(QListWidgetItem *item) {
+    Fndr fn = item->data(Qt::UserRole).value<Fndr>();
+    ui->fndr_name->setText(fn.name);
+    ui->fndr_age->setText(QString::fromStdString(to_string(fn.age)));
+    ui->fndr_wealth->setText(QString::fromStdString(to_string(fn.wealth)));
+    ui->fndr_edit->setEnabled(1);
+    ui->fndr_del->setEnabled(1);
+}
+
+ void MainWindow::on_back_clicked() {
+  ui->fndr_list->clear();
+  ui->fndr_edit->setEnabled(0);
+  ui->fndr_del->setEnabled(0);
+  ui->fndr_list->setDisabled(1);
+  ui->fndr_name->setText("");
+  ui->fndr_age->setText("");
+  ui->fndr_wealth->setText(QString(""));
+  ui->entities->setCurrentIndex(0);
+}
+
+/* Additional funct */
+void MainWindow::on_org_search_textChanged(const QString &arg1) {
+  osearch = arg1;
+  ui->orgs_list->clear();
+  ui->org_edit->setDisabled(1);
+  ui->org_del->setDisabled(1);
+  org_curr_page=0;
+  addOrg(storage_->getAllUserOrgs(auth_user.value().id, osearch, org_curr_page));
+}
+
+void MainWindow::on_fndr_search_textChanged(const QString &arg1) {
+    fsearch = arg1;
+    ui->fndr_list->clear();
+    ui->fndr_edit->setDisabled(1);
+    ui->fndr_del->setDisabled(1);
+    addFndr(storage_->getAllOrgsFndrs(global_org.id, fsearch));
 }

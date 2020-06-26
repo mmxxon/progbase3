@@ -248,10 +248,10 @@ color: rgb(255, 255, 255);</string>
          <property name="font">
           <font>
            <family>Arial</family>
-           <pointsize>15</pointsize>
-           <weight>75</weight>
+           <pointsize>14</pointsize>
+           <weight>50</weight>
            <italic>false</italic>
-           <bold>true</bold>
+           <bold>false</bold>
           </font>
          </property>
          <property name="focusPolicy">
@@ -267,6 +267,9 @@ color: rgb(255, 255, 255);</string>
          </property>
          <property name="text">
           <string/>
+         </property>
+         <property name="maxLength">
+          <number>30</number>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -295,11 +298,11 @@ color: rgb(255, 255, 255);</string>
          </property>
          <property name="font">
           <font>
-           <family>Arial Black</family>
-           <pointsize>15</pointsize>
-           <weight>75</weight>
+           <family>Arial</family>
+           <pointsize>14</pointsize>
+           <weight>50</weight>
            <italic>false</italic>
-           <bold>true</bold>
+           <bold>false</bold>
           </font>
          </property>
          <property name="focusPolicy">
@@ -315,6 +318,9 @@ color: rgb(255, 255, 255);</string>
          </property>
          <property name="text">
           <string/>
+         </property>
+         <property name="maxLength">
+          <number>30</number>
          </property>
          <property name="echoMode">
           <enum>QLineEdit::Password</enum>
@@ -346,11 +352,11 @@ color: rgb(255, 255, 255);</string>
          </property>
          <property name="font">
           <font>
-           <family>Arial Black</family>
-           <pointsize>15</pointsize>
-           <weight>75</weight>
+           <family>Arial</family>
+           <pointsize>14</pointsize>
+           <weight>50</weight>
            <italic>false</italic>
-           <bold>true</bold>
+           <bold>false</bold>
           </font>
          </property>
          <property name="focusPolicy">
@@ -366,6 +372,9 @@ color: rgb(255, 255, 255);</string>
          </property>
          <property name="text">
           <string/>
+         </property>
+         <property name="maxLength">
+          <number>30</number>
          </property>
          <property name="echoMode">
           <enum>QLineEdit::Password</enum>
@@ -397,10 +406,10 @@ color: rgb(255, 255, 255);</string>
          </property>
          <property name="font">
           <font>
-           <family>Arial Black</family>
-           <pointsize>15</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
+           <family>Arial</family>
+           <pointsize>14</pointsize>
+           <weight>50</weight>
+           <bold>false</bold>
           </font>
          </property>
          <property name="focusPolicy">
@@ -413,6 +422,9 @@ color: rgb(255, 255, 255);</string>
          </property>
          <property name="text">
           <string/>
+         </property>
+         <property name="maxLength">
+          <number>30</number>
          </property>
          <property name="echoMode">
           <enum>QLineEdit::Password</enum>
@@ -567,7 +579,7 @@ color: rgb(0, 0, 0);
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="cancel_button">
+      <widget class="QPushButton" name="cancer_button">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -670,7 +682,7 @@ color: rgb(0, 0, 0);
   <tabstop>password</tabstop>
   <tabstop>confirm</tabstop>
   <tabstop>okay_button</tabstop>
-  <tabstop>cancel_button</tabstop>
+  <tabstop>cancer_button</tabstop>
  </tabstops>
  <resources/>
  <connections/>

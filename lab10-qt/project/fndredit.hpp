@@ -12,21 +12,22 @@ namespace Ui {
 class FndrEdit;
 }
 
-class FndrEdit : public QDialog
-{
+class FndrEdit : public QDialog {
   Q_OBJECT
 signals:
-  void upd_fndr(Fndr*);
+  void upd_fndr(Fndr *);
   void disableToggle();
+
 protected:
-  void closeEvent(QCloseEvent*);
+  void closeEvent(QCloseEvent *);
 private slots:
 
   void on_okay_button_clicked();
 
-  void on_cancel_button_clicked();
+  void on_cancer_button_clicked();
 
-  void edit_fndr(QListWidgetItem*);
+  void edit_fndr(QListWidgetItem *);
+
 public:
   explicit FndrEdit(QWidget *parent = nullptr);
   ~FndrEdit();
@@ -34,4 +35,3 @@ public:
 private:
   Ui::FndrEdit *ui;
 };
-

@@ -25,11 +25,11 @@ public:
   optional<Org> getOrgById(int);
   bool updateOrg(const Org &);
   bool removeOrg(int);
-  int insertOrg(const Org &);
+  int insertOrg(const Org &, int userid);
 
   // fndrs
   QVector<Fndr> getAllFndrs(void);
-  optional<Fndr> getFndrById(int);
+  optional<Fndr> getFndrById(int, QString);
   bool updateFndr(const Fndr &);
   bool removeFndr(int);
   int insertFndr(const Fndr &);
@@ -38,13 +38,16 @@ public:
   bool registration_user(const QString &, const QString &);
   bool change_user_options(int &, const QString &, const QString &);
   optional<User> getUserAuth(const QString &, const QString &);
-  QVector<Org> getAllUserOrgs(int);
+  QVector<Org> getAllUserOrgs(int, QString, int);
 
   // links
-  QVector<Fndr> getAllOrgsFndrs(int );
+  QVector<Fndr> getAllOrgsFndrs(int, QString);
   bool insertOrgFndr(int, int);
   bool removeOrgFndr(int, int);
   bool fndrOrgExec(int, int);
+
+  // Search
+  int countOrgs(int, QString);
 };
 
 QString hashPassword(QString const &);

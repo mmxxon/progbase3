@@ -204,11 +204,11 @@ color: rgb(255, 255, 255);</string>
          </property>
          <property name="font">
           <font>
-           <family>Arial Black</family>
-           <pointsize>15</pointsize>
-           <weight>75</weight>
+           <family>Arial</family>
+           <pointsize>14</pointsize>
+           <weight>50</weight>
            <italic>false</italic>
-           <bold>true</bold>
+           <bold>false</bold>
           </font>
          </property>
          <property name="focusPolicy">
@@ -224,6 +224,9 @@ color: rgb(255, 255, 255);</string>
          </property>
          <property name="text">
           <string/>
+         </property>
+         <property name="maxLength">
+          <number>30</number>
          </property>
          <property name="echoMode">
           <enum>QLineEdit::Normal</enum>
@@ -255,11 +258,11 @@ color: rgb(255, 255, 255);</string>
          </property>
          <property name="font">
           <font>
-           <family>Arial Black</family>
-           <pointsize>15</pointsize>
-           <weight>75</weight>
+           <family>Arial</family>
+           <pointsize>14</pointsize>
+           <weight>50</weight>
            <italic>false</italic>
-           <bold>true</bold>
+           <bold>false</bold>
           </font>
          </property>
          <property name="focusPolicy">
@@ -275,6 +278,9 @@ color: rgb(255, 255, 255);</string>
          </property>
          <property name="text">
           <string/>
+         </property>
+         <property name="maxLength">
+          <number>30</number>
          </property>
          <property name="echoMode">
           <enum>QLineEdit::Normal</enum>
@@ -298,7 +304,7 @@ color: rgb(255, 255, 255);</string>
          <property name="font">
           <font>
            <family>Arial</family>
-           <pointsize>15</pointsize>
+           <pointsize>14</pointsize>
           </font>
          </property>
          <property name="styleSheet">
@@ -452,7 +458,7 @@ color: rgb(0, 0, 0);
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="cancel_button">
+      <widget class="QPushButton" name="cancer_button">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>

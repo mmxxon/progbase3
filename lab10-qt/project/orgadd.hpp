@@ -3,20 +3,19 @@
 #include "organisation.h"
 
 #include <QDebug>
+#include <QDialog>
 #include <QListWidget>
 #include <QMainWindow>
 #include <QMessageBox>
-#include <QDialog>
 
 namespace Ui {
 class OrgAdd;
 }
 
-class OrgAdd : public QDialog
-{
+class OrgAdd : public QDialog {
   Q_OBJECT
 signals:
-  void org_add(Org*);
+  void org_add(Org *);
   void disableToggle();
 
 public:
@@ -24,7 +23,7 @@ public:
   ~OrgAdd();
 
 protected:
-  void closeEvent(QCloseEvent*);
+  void closeEvent(QCloseEvent *);
 private slots:
 
   void on_okay_button_clicked();
@@ -34,4 +33,3 @@ private slots:
 private:
   Ui::OrgAdd *ui;
 };
-

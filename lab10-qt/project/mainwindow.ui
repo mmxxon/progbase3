@@ -1111,7 +1111,7 @@ color: rgb(0, 0, 0);
            </sizepolicy>
           </property>
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="orgs_menu">
            <layout class="QGridLayout" name="gridLayout_2">
@@ -1243,7 +1243,7 @@ QListView::item:selected { background:  rgb(255, 163, 26); color: rgb(0, 0, 0)}<
                 <item>
                  <layout class="QHBoxLayout" name="horizontalLayout_5">
                   <item>
-                   <widget class="QSpinBox" name="org_prev">
+                   <widget class="QPushButton" name="org_prev">
                     <property name="minimumSize">
                      <size>
                       <width>30</width>
@@ -1252,12 +1252,9 @@ QListView::item:selected { background:  rgb(255, 163, 26); color: rgb(0, 0, 0)}<
                     </property>
                     <property name="font">
                      <font>
-                      <family>Arial Black</family>
-                      <pointsize>14</pointsize>
+                      <family>Arial</family>
+                      <pointsize>12</pointsize>
                      </font>
-                    </property>
-                    <property name="focusPolicy">
-                     <enum>Qt::NoFocus</enum>
                     </property>
                     <property name="styleSheet">
                      <string notr="true">background-color: rgb(255, 163, 26);
@@ -1265,23 +1262,8 @@ border-radius:10px;
 color: rgb(0, 0, 0);
 </string>
                     </property>
-                    <property name="frame">
-                     <bool>true</bool>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignCenter</set>
-                    </property>
-                    <property name="readOnly">
-                     <bool>true</bool>
-                    </property>
-                    <property name="buttonSymbols">
-                     <enum>QAbstractSpinBox::NoButtons</enum>
-                    </property>
-                    <property name="minimum">
-                     <number>0</number>
-                    </property>
-                    <property name="maximum">
-                     <number>1</number>
+                    <property name="text">
+                     <string>0</string>
                     </property>
                    </widget>
                   </item>
@@ -1299,23 +1281,29 @@ color: rgb(0, 0, 0);
                    </spacer>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="org_page">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
+                   <widget class="QSpinBox" name="org_page">
                     <property name="minimumSize">
                      <size>
-                      <width>0</width>
+                      <width>60</width>
                       <height>30</height>
                      </size>
                     </property>
+                    <property name="font">
+                     <font>
+                      <family>Arial</family>
+                      <pointsize>10</pointsize>
+                     </font>
+                    </property>
                     <property name="styleSheet">
-                     <string notr="true">color: rgb(50, 50, 50);
+                     <string notr="true">color: rgb(100, 100, 100);
 border-radius:10px;
 background-color: rgb(200, 200, 200);</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                    <property name="maximum">
+                     <number>0</number>
                     </property>
                    </widget>
                   </item>
@@ -1333,7 +1321,7 @@ background-color: rgb(200, 200, 200);</string>
                    </spacer>
                   </item>
                   <item>
-                   <widget class="QSpinBox" name="org_next">
+                   <widget class="QPushButton" name="org_next">
                     <property name="minimumSize">
                      <size>
                       <width>30</width>
@@ -1342,12 +1330,9 @@ background-color: rgb(200, 200, 200);</string>
                     </property>
                     <property name="font">
                      <font>
-                      <family>Arial Black</family>
-                      <pointsize>14</pointsize>
+                      <family>Arial</family>
+                      <pointsize>12</pointsize>
                      </font>
-                    </property>
-                    <property name="focusPolicy">
-                     <enum>Qt::NoFocus</enum>
                     </property>
                     <property name="styleSheet">
                      <string notr="true">background-color: rgb(255, 163, 26);
@@ -1355,23 +1340,8 @@ border-radius:10px;
 color: rgb(0, 0, 0);
 </string>
                     </property>
-                    <property name="frame">
-                     <bool>true</bool>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignCenter</set>
-                    </property>
-                    <property name="readOnly">
-                     <bool>true</bool>
-                    </property>
-                    <property name="buttonSymbols">
-                     <enum>QAbstractSpinBox::NoButtons</enum>
-                    </property>
-                    <property name="minimum">
-                     <number>0</number>
-                    </property>
-                    <property name="maximum">
-                     <number>1</number>
+                    <property name="text">
+                     <string>0</string>
                     </property>
                    </widget>
                   </item>
@@ -2302,7 +2272,7 @@ QListView::item:selected { background:  rgb(255, 163, 26); color: rgb(0, 0, 0)}<
                 <item>
                  <layout class="QHBoxLayout" name="horizontalLayout">
                   <item>
-                   <widget class="QSpinBox" name="fndr_prev">
+                   <widget class="QPushButton" name="fndr_prev">
                     <property name="minimumSize">
                      <size>
                       <width>30</width>
@@ -2311,12 +2281,9 @@ QListView::item:selected { background:  rgb(255, 163, 26); color: rgb(0, 0, 0)}<
                     </property>
                     <property name="font">
                      <font>
-                      <family>Arial Black</family>
-                      <pointsize>14</pointsize>
+                      <family>Arial</family>
+                      <pointsize>12</pointsize>
                      </font>
-                    </property>
-                    <property name="focusPolicy">
-                     <enum>Qt::NoFocus</enum>
                     </property>
                     <property name="styleSheet">
                      <string notr="true">background-color: rgb(255, 163, 26);
@@ -2324,23 +2291,8 @@ border-radius:10px;
 color: rgb(0, 0, 0);
 </string>
                     </property>
-                    <property name="frame">
-                     <bool>true</bool>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignCenter</set>
-                    </property>
-                    <property name="readOnly">
-                     <bool>true</bool>
-                    </property>
-                    <property name="buttonSymbols">
-                     <enum>QAbstractSpinBox::NoButtons</enum>
-                    </property>
-                    <property name="minimum">
-                     <number>0</number>
-                    </property>
-                    <property name="maximum">
-                     <number>1</number>
+                    <property name="text">
+                     <string>0</string>
                     </property>
                    </widget>
                   </item>
@@ -2358,26 +2310,29 @@ color: rgb(0, 0, 0);
                    </spacer>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="fndr_page">
-                    <property name="enabled">
-                     <bool>false</bool>
-                    </property>
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
+                   <widget class="QSpinBox" name="fndr_page">
                     <property name="minimumSize">
                      <size>
-                      <width>0</width>
+                      <width>60</width>
                       <height>30</height>
                      </size>
                     </property>
+                    <property name="font">
+                     <font>
+                      <family>Arial</family>
+                      <pointsize>10</pointsize>
+                     </font>
+                    </property>
                     <property name="styleSheet">
-                     <string notr="true">color: rgb(50, 50, 50);
+                     <string notr="true">color: rgb(100, 100, 100);
 border-radius:10px;
 background-color: rgb(200, 200, 200);</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                    <property name="maximum">
+                     <number>0</number>
                     </property>
                    </widget>
                   </item>
@@ -2395,7 +2350,7 @@ background-color: rgb(200, 200, 200);</string>
                    </spacer>
                   </item>
                   <item>
-                   <widget class="QSpinBox" name="fndr_next">
+                   <widget class="QPushButton" name="fndr_next">
                     <property name="minimumSize">
                      <size>
                       <width>30</width>
@@ -2404,12 +2359,9 @@ background-color: rgb(200, 200, 200);</string>
                     </property>
                     <property name="font">
                      <font>
-                      <family>Arial Black</family>
-                      <pointsize>14</pointsize>
+                      <family>Arial</family>
+                      <pointsize>12</pointsize>
                      </font>
-                    </property>
-                    <property name="focusPolicy">
-                     <enum>Qt::NoFocus</enum>
                     </property>
                     <property name="styleSheet">
                      <string notr="true">background-color: rgb(255, 163, 26);
@@ -2417,23 +2369,8 @@ border-radius:10px;
 color: rgb(0, 0, 0);
 </string>
                     </property>
-                    <property name="frame">
-                     <bool>true</bool>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignCenter</set>
-                    </property>
-                    <property name="readOnly">
-                     <bool>true</bool>
-                    </property>
-                    <property name="buttonSymbols">
-                     <enum>QAbstractSpinBox::NoButtons</enum>
-                    </property>
-                    <property name="minimum">
-                     <number>0</number>
-                    </property>
-                    <property name="maximum">
-                     <number>1</number>
+                    <property name="text">
+                     <string>0</string>
                     </property>
                    </widget>
                   </item>

@@ -79,7 +79,7 @@ void MainWindow::on_close_clicked() {
     ui->fndr_edit->setDisabled(1);
     ui->fndr_del->setDisabled(1);
 
-    ui->org_page->placeholderText().clear();
+    ui->org_page->setValue(0);
     ui->org_page->clear();
     ui->org_prev->setHidden(1);
     ui->org_next->setHidden(1);
@@ -105,6 +105,16 @@ void MainWindow::addOrg(const QVector<Org> &org) {
         qOrg->setTextAlignment(Qt::AlignHCenter);
         ui->orgs_list->addItem(qOrg);
     }
+    org_curr_page=0;
+    org_max_page=ceil(storage_->countOrgs(auth_user->id, osearch) / 10 );
+
+    if (org_max_page != 0) {
+        ui->org_next->setHidden(0);
+        ui->org_next->setText(QString::fromStdString(to_string(org_curr_page + 2)));
+    }
+    ui->org_page->setValue(0);
+    ui->org_page->setMaximum(org_max_page);
+    qDebug() << "Count: " << storage_->countOrgs(auth_user->id, osearch) / 10;
 }
 
 void MainWindow::addFndr(const QVector<Fndr> &fndr) {
@@ -129,6 +139,15 @@ void MainWindow::org_push(Org *o) {
     item->setTextAlignment(Qt::AlignHCenter);
 
     ui->orgs_list->addItem(item);
+    org_curr_page=0;
+    org_max_page=ceil(storage_->countOrgs(auth_user->id, osearch) / 10 );
+    if (org_max_page != 0) {
+        ui->org_next->setHidden(0);
+        ui->org_next->setText(QString::fromStdString(to_string(org_curr_page + 2)));
+    }
+    ui->org_page->setValue(0);
+    ui->org_page->setMaximum(org_max_page);
+    qDebug() << "Count: " << storage_->countOrgs(auth_user->id, osearch) / 10;
 }
 
 void MainWindow::fndr_push(Fndr *f) {
@@ -296,13 +315,8 @@ void MainWindow::on_login_continue_clicked() {
 
     ui->org_add->setEnabled(1);
     org_curr_page=0;
-    ui->org_page->setPlaceholderText(QString::fromStdString("page: " + to_string(org_curr_page + 1)));
+    ui->org_page->setValue(org_curr_page + 1);
     ui->org_page->setHidden(0);
-    org_max_page=ceil(storage_->countOrgs(auth_user->id, osearch) / 10 );
-    if (org_max_page != 0) {
-        ui->org_next->setHidden(0);
-        ui->org_next->setValue(org_curr_page + 2);
-    }
 
     ui->ent_user->setText(login);
     ui->ent_user_edit->setEnabled(1);
@@ -346,12 +360,12 @@ void MainWindow::on_ent_user_logout_clicked() {
     ui->fndr_edit->setDisabled(1);
     ui->fndr_del->setDisabled(1);
 
-    ui->org_page->placeholderText().clear();
+    ui->org_page->setValue(0);
     ui->org_page->clear();
     ui->org_prev->setHidden(1);
     ui->org_next->setHidden(1);
 
-    ui->fndr_page->placeholderText().clear();
+    ui->fndr_page->setValue(0);
     ui->fndr_page->clear();
     ui->fndr_prev->setHidden(1);
     ui->fndr_next->setHidden(1);

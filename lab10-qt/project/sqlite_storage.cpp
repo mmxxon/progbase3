@@ -455,12 +455,14 @@ int SqliteStorage::countOrgs(int id, QString text) {
     QSqlQuery q;
     if (!q.prepare("SELECT COUNT(*) FROM orgs WHERE user_id = :user_id AND label LIKE ('%' || :text || '%')")) {
       qDebug() << "get user orgs prep:" << q.lastError();
-      return -1;
+      return 0;
     }
     q.bindValue(":user_id", id);
     q.bindValue(":text", text);
     if (!q.exec()) {
       qDebug() << "get user_id: " << q.lastError();
+    } else if (!q.next()) {
+      qDebug() << "Error: " << q.lastError();
     }
     return q.value(0).toInt();
 }
